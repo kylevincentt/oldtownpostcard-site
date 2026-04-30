@@ -9,7 +9,7 @@
     s.id = 'word-cycler-style';
     s.textContent = [
       '.word-cycler{display:inline-block;position:relative;vertical-align:baseline;color:var(--red,#b03a2e);min-width:0;}',
-      '.word-cycler-track{display:inline-block;color:var(--red,#b03a2e);font-weight:700;white-space:nowrap;will-change:transform,opacity;transform-origin:50% 60%;transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1),opacity 110ms ease-out;}',
+      '.word-cycler-track{display:inline-block;color:var(--red,#b03a2e);font-weight:700;white-space:nowrap;will-change:transform,opacity;transform-origin:0% 60%;transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1),opacity 110ms ease-out;}',
       '.word-cycler-track[data-state="out"]{transition:transform 110ms cubic-bezier(0.4,0,1,1),opacity 110ms ease-in;transform:translateY(-32%) scale(0.9);opacity:0;}',
       '.word-cycler-track[data-state="enter"]{transition:none !important;transform:translateY(32%) scale(0.9);opacity:0;}',
       '@media (prefers-reduced-motion:reduce){.word-cycler-track{transition:none !important;}.word-cycler-track[data-state="out"],.word-cycler-track[data-state="enter"]{transform:none !important;opacity:1 !important;}}',
@@ -30,7 +30,6 @@
         return { h1: h, strong: h.querySelector('strong') };
       }
     }
-    // existing word-cycler from previous deploy?
     var existing = document.querySelector('.word-cycler .word-cycler-track');
     if(existing){
       return { h1: existing.closest('h1'), strong: existing.parentNode };
@@ -38,8 +37,31 @@
     return { h1: null, strong: null };
   }
 
+  function ensureBr(node, position){
+    var sib = position === 'before' ? node.previousSibling : node.nextSibling;
+    if(sib && sib.nodeName === 'BR') return;
+    var br = document.createElement('br');
+    if(position === 'before'){
+      node.parentNode.insertBefore(br, node);
+    } else {
+      node.parentNode.insertBefore(br, node.nextSibling);
+    }
+  }
+
+  function trimAdjacentText(node){
+    var prev = node.previousSibling;
+    while(prev && prev.nodeName === 'BR') prev = prev.previousSibling;
+    if(prev && prev.nodeType === 3){
+      prev.textContent = prev.textContent.replace(/\s+$/, '');
+    }
+    var next = node.nextSibling;
+    while(next && next.nodeName === 'BR') next = next.nextSibling;
+    if(next && next.nodeType === 3){
+      next.textContent = next.textContent.replace(/^\s+/, '');
+    }
+  }
+
   function updateCopy(){
-    // "Reports back in 2 weeks" -> new text
     var spans = document.querySelectorAll('.hero-meta span');
     spans.forEach(function(span){
       span.childNodes.forEach(function(n){
@@ -55,12 +77,10 @@
     updateCopy();
     var found = findHeadlineStrong();
     if(!found.h1) return;
-    var h1 = found.h1;
     var target = found.strong;
     var wrap, track;
 
     if(target && target.classList && target.classList.contains('word-cycler')){
-      // Already a cycler from older deploy — replace it cleanly
       wrap = target;
       track = wrap.querySelector('.word-cycler-track');
       if(!track){
@@ -72,19 +92,10 @@
       }
       track.textContent = WORDS[0];
       wrap.style.minWidth = '0';
-      // Ensure BR after wrap
-      var nextSib = wrap.nextSibling;
-      if(!(nextSib && nextSib.nodeName === 'BR')){
-        var br = document.createElement('br');
-        wrap.parentNode.insertBefore(br, wrap.nextSibling);
-        // Trim leading whitespace from text node after BR
-        var afterBr = br.nextSibling;
-        if(afterBr && afterBr.nodeType === 3){
-          afterBr.textContent = afterBr.textContent.replace(/^\s+/, '');
-        }
-      }
+      ensureBr(wrap, 'before');
+      ensureBr(wrap, 'after');
+      trimAdjacentText(wrap);
     } else if(target && /plumber|dentist|landscaper/i.test(target.textContent || '')){
-      // Original <strong> markup — replace with cycler
       wrap = document.createElement('span');
       wrap.className = 'word-cycler';
       track = document.createElement('span');
@@ -92,13 +103,10 @@
       track.setAttribute('data-word-cycler','');
       track.textContent = WORDS[0];
       wrap.appendChild(track);
-      var br = document.createElement('br');
       target.parentNode.replaceChild(wrap, target);
-      wrap.parentNode.insertBefore(br, wrap.nextSibling);
-      var afterBr = br.nextSibling;
-      if(afterBr && afterBr.nodeType === 3){
-        afterBr.textContent = afterBr.textContent.replace(/^\s+/, '');
-      }
+      ensureBr(wrap, 'before');
+      ensureBr(wrap, 'after');
+      trimAdjacentText(wrap);
     } else {
       return;
     }

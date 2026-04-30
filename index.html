@@ -1,1 +1,624 @@
-FILE_CONTENT_PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Old Town Postcard Co. - Direct mail marketing for local Virginia businesses">
+<meta name="keywords" content="postcard marketing, direct mail, Manassas VA, EDDM">
+<title>Old Town Postcard Co. - Direct Mail Marketing</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fafafa;
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+nav .logo {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #c41e3a;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #c41e3a;
+}
+
+/* Hero Section */
+.hero {
+  margin-top: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 120px 2rem;
+  text-align: center;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Word cycler animation */
+.word-cycler {
+  display: inline-block;
+  position: relative;
+  height: 1em;
+  width: 200px;
+  vertical-align: middle;
+}
+
+.word-cycler-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  animation: fadeInOut 8s infinite;
+  will-change: opacity;
+}
+
+.word-cycler-item:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.word-cycler-item:nth-child(2) {
+  animation-delay: 2.67s;
+}
+
+.word-cycler-item:nth-child(3) {
+  animation-delay: 5.34s;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  10%, 90% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  opacity: 0.95;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #c41e3a;
+  color: white;
+  padding: 15px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: 2px solid #c41e3a;
+}
+
+.cta-button:hover {
+  background: white;
+  color: #c41e3a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Features Section */
+.features {
+  padding: 80px 2rem;
+  background: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #333;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #e9ecef;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  margin-bottom: 1rem;
+  color: #c41e3a;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Case Study Section */
+.case-study {
+  padding: 80px 2rem;
+  background: #f8f9fa;
+}
+
+.case-study-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.case-study-text h3 {
+  color: #c41e3a;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.case-study-text p {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.stat {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  border-left: 4px solid #c41e3a;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #c41e3a;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* Process Section */
+.process {
+  padding: 80px 2rem;
+  background: white;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #c41e3a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.step h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.step p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 80px 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  margin-bottom: 1rem;
+  color: #c41e3a;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section a {
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: #c41e3a;
+}
+
+.footer-bottom {
+  border-top: 1px solid #555;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero {
+    margin-top: 0;
+    padding: 60px 1rem;
+    min-height: auto;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .case-study-content {
+    grid-template-columns: 1fr;
+  }
+
+  .word-cycler {
+    width: 150px;
+  }
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-card {
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+</style>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+  <div class="logo">Old Town Postcard Co.</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#case-study">Case Study</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Make Your Local Business <span class="word-cycler"><span class="word-cycler-item">Stand Out</span><span class="word-cycler-item">Get Noticed</span><span class="word-cycler-item">Grow Fast</span></span></h1>
+    <p>Premium postcard marketing designed for local Virginia businesses. EDDM-targeted campaigns that drive real results.</p>
+    <a href="#contact" class="cta-button">Get Your Free Quote</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="services">
+  <div class="container">
+    <h2 class="section-title">Why Choose Us</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📍</div>
+        <h3>EDDM Targeted</h3>
+        <p>Reach specific neighborhoods and ZIP codes in Manassas, Nokesville, and Bristow without needing customer lists.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Custom Design</h3>
+        <p>Professional designs that grab attention and drive action. From concept to printed postcard.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Affordable</h3>
+        <p>High-quality postcards at prices that work for small business budgets. No hidden fees.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Trackable Results</h3>
+        <p>QR codes and unique URLs help you measure ROI on every campaign.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Quick Turnaround</h3>
+        <p>Fast design and printing timeline means your campaign launches when you need it.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>Full Service</h3>
+        <p>We handle design, printing, and USPS mailing logistics for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Case Study Section -->
+<section class="case-study">
+  <div class="container">
+    <h2 class="section-title">Real Results</h2>
+    <div class="case-study-content">
+      <div>
+        <div class="case-study-text">
+          <h3>Local Home Service Company</h3>
+          <p>A Manassas-based HVAC contractor wanted to expand their service area. We designed and executed an EDDM postcard campaign targeting high-income neighborhoods within a 5-mile radius.</p>
+          <p>The campaign included a trackable QR code that led to a landing page, allowing them to measure exactly which postcards were generating calls and estimates.</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">12,000+</div>
+          <div class="stat-label">Postcards Mailed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">312</div>
+          <div class="stat-label">Website Visits</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">48</div>
+          <div class="stat-label">Qualified Leads</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">18</div>
+          <div class="stat-label">New Customers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process Section -->
+<section class="process" id="process">
+  <div class="container">
+    <h2 class="section-title">Our Process</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Understand Your Goals</h3>
+        <p>We learn about your business, target audience, and campaign objectives.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Design & Strategy</h3>
+        <p>Create eye-catching designs and select optimal EDDM routes in your area.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Print & Mail</h3>
+        <p>Professional printing and USPS EDDM delivery to target neighborhoods.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Track Results</h3>
+        <p>Monitor engagement through QR codes and unique tracking URLs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Grow Your Business?</h2>
+    <p>Let's create a postcard campaign that turns your local neighbors into customers.</p>
+    <a href="#contact" class="cta-button">Get Your Free Quote Today</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Old Town Postcard Co.</h4>
+      <p>Direct mail marketing for local Virginia businesses.</p>
+      <p><strong>Service Areas:</strong> Manassas, Nokesville, Bristow VA (20112)</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#case-study">Case Study</a></li>
+        <li><a href="#process">Process</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Email: <a href="mailto:kylevcrum@gmail.com">kylevcrum@gmail.com</a></p>
+      <p>Phone: <a href="tel:+1234567890">(123) 456-7890</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Old Town Postcard Co. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Initialize word cycler
+  function init() {
+    // The cycling animation is handled by CSS
+    // This function can be expanded later for additional interactivity
+    console.log('Old Town Postcard Co. website loaded');
+    
+    // Smooth scroll polyfill for older browsers
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

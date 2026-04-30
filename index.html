@@ -160,7 +160,7 @@ Mailed locally · Manassas / Nokesville / Bristow
 One business per category · No competitors
 </div>
 <div class="trust-strip-item">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 14h3v3h-3zM14 18h3v3h-3z"/></svg>
 Free dynamic QR code with every ad
 </div>
 </div>
@@ -598,3 +598,63 @@ Free dynamic QR code with every ad
     var pageHidden = false;
     function measureMin(){
       var ghost = document.createElement('span');
+      var cs = window.getComputedStyle(track);
+      ghost.style.fontFamily = cs.fontFamily;
+      ghost.style.fontSize = cs.fontSize;
+      ghost.style.fontWeight = cs.fontWeight;
+      ghost.style.fontStyle = cs.fontStyle;
+      ghost.style.letterSpacing = cs.letterSpacing;
+      ghost.style.position = 'absolute';
+      ghost.style.visibility = 'hidden';
+      ghost.style.whiteSpace = 'nowrap';
+      ghost.style.left = '-9999px';
+      ghost.style.top = '-9999px';
+      document.body.appendChild(ghost);
+      var max = 0;
+      for(var i=0;i<WORDS.length;i++){
+        ghost.textContent = WORDS[i];
+        var w = ghost.getBoundingClientRect().width;
+        if(w > max) max = w;
+      }
+      document.body.removeChild(ghost);
+      return max;
+    }
+    function applyMin(){
+      wrap.style.minWidth = Math.ceil(measureMin()) + 'px';
+    }
+    applyMin();
+    var resizeT;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeT);
+      resizeT = setTimeout(applyMin, 150);
+    });
+    document.addEventListener('visibilitychange', function(){
+      pageHidden = document.hidden;
+    });
+    var idx = 0;
+    function tick(){
+      if(pageHidden) return;
+      idx = (idx + 1) % WORDS.length;
+      if(prefersReduced){
+        track.textContent = WORDS[idx];
+        return;
+      }
+      track.setAttribute('data-state','out');
+      setTimeout(function(){
+        track.textContent = WORDS[idx];
+        track.setAttribute('data-state','enter');
+        void track.offsetWidth;
+        track.removeAttribute('data-state');
+      }, TRANSITION_MS);
+    }
+    setInterval(tick, INTERVAL_MS);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Old Town Postcard Co. — Local advertising mailed to 9,800+ Manassas, Nokesville & Bristow homes</title>
-<meta name="description" content="A shared 9x12 postcard mailed by USPS to ~9,800 high-income homeowners in zip 20112. One business per category. $500 covers your slot, custom ad design, and a free dynamic QR code.">
+<meta name="description" content="A shared 9x12 postcard mailed by USPS to ~9,800 high-income homeowners in zip 20112. One business per category. From $499 per mailing or $449/month — covers your slot, custom ad design, and a free dynamic QR code.">
 <meta property="og:title" content="Old Town Postcard Co. — Manassas, Nokesville & Bristow">
-<meta property="og:description" content="Be the only business in your category on a 9x12 postcard mailed to ~9,800 local homes. $500. Free design. Free QR code.">
+<meta property="og:description" content="Be the only business in your category on a 9x12 postcard mailed to ~9,800 local homes. From $499 per mailing. Free design. Free QR code.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%23163556'/%3E%3Ctext x='50' y='62' font-family='Georgia,serif' font-size='40' font-weight='700' text-anchor='middle' fill='%23d4a83c'%3EOT%3C/text%3E%3C/svg%3E">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -234,6 +234,21 @@
   }
   .image-slot strong { color: var(--navy-deep); font-size: 1rem; }
   .image-slot small { color: var(--muted); font-size: 0.82rem; max-width: 280px; }
+  .real-photo {
+    aspect-ratio: 12 / 9;
+    background: #f4eddc;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .real-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .photo-caption {
+    font-size: 0.82rem; color: var(--muted);
+    margin-top: 10px; font-style: italic;
+    text-align: center;
+  }
 
   /* What's included */
   .features {
@@ -261,36 +276,51 @@
   .pricing-section h2 { color: var(--cream); }
   .pricing-section .section-eyebrow { color: var(--gold-soft); }
   .pricing-section .section-head p { color: rgba(250, 246, 237, 0.8); }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
   .price-card {
-    max-width: 580px; margin: 0 auto;
     background: var(--cream);
     color: var(--ink);
     border-radius: 16px;
-    padding: 44px 40px;
-    text-align: center;
+    padding: 36px 32px 32px;
     box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    display: flex; flex-direction: column;
+    position: relative;
   }
-  .price-card h3 { color: var(--navy-deep); font-size: 1.4rem; margin-bottom: 12px; }
-  .price-amount {
-    font-family: Georgia, serif;
-    font-size: 4rem; font-weight: 700;
-    color: var(--navy-deep);
-    line-height: 1; margin: 18px 0 6px;
+  .price-card.premium {
+    border: 2px solid var(--gold);
   }
-  .price-amount span { font-size: 1.6rem; vertical-align: top; }
-  .price-note { color: var(--muted); font-size: 0.95rem; margin-bottom: 26px; }
+  .price-card.premium::before {
+    content: "PREMIUM";
+    position: absolute; top: -12px; left: 32px;
+    background: var(--gold); color: var(--navy-deep);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    padding: 4px 12px; border-radius: 4px;
+  }
+  .price-card-head { text-align: left; margin-bottom: 18px; }
+  .price-card-head h3 {
+    color: var(--navy-deep); font-size: 1.55rem; margin-bottom: 4px;
+  }
+  .price-card-tag {
+    color: var(--muted); font-size: 0.92rem; margin: 0;
+  }
   .price-list {
     text-align: left;
     list-style: none;
-    margin: 26px 0;
-    padding: 24px 0;
+    margin: 0;
+    padding: 18px 0 22px;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
   .price-list li {
-    padding: 8px 0;
-    display: flex; gap: 12px; align-items: flex-start;
-    font-size: 0.97rem;
+    padding: 6px 0;
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.93rem;
   }
   .price-list li::before {
     content: "✓";
@@ -298,9 +328,69 @@
     font-weight: 700;
     flex-shrink: 0;
   }
+  .price-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .price-option {
+    background: var(--cream-dim);
+    padding: 20px 18px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .price-option.recommended {
+    background: linear-gradient(135deg, var(--cream-dim) 0%, #f5e6b8 100%);
+    border-color: var(--gold);
+  }
+  .price-option-head {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--navy-deep); font-weight: 700; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    flex-wrap: wrap;
+  }
+  .price-amount {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    color: var(--navy-deep);
+    line-height: 1;
+    display: flex; align-items: baseline; justify-content: center;
+    margin: 4px 0 4px;
+  }
+  .price-option .price-amount {
+    font-size: 2.4rem;
+  }
+  .price-amount > span:first-child {
+    font-size: 1.1rem; align-self: flex-start; margin-top: 6px;
+  }
+  .price-amount .suffix {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 3px;
+  }
+  .price-note {
+    color: var(--muted); font-size: 0.78rem;
+    margin: 4px 0 14px; min-height: 32px;
+  }
+  .price-option .btn {
+    width: 100%;
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    margin-top: auto;
+  }
+  .badge {
+    background: var(--red); color: var(--cream);
+    font-size: 0.62rem; padding: 3px 8px; border-radius: 10px;
+    letter-spacing: 0.06em;
+  }
   .scarcity-row {
     display: flex; gap: 32px; flex-wrap: wrap;
-    justify-content: center; margin-top: 36px;
+    justify-content: center; margin-top: 40px;
     color: var(--cream); font-size: 0.95rem;
   }
   .scarcity-row strong { color: var(--gold-soft); font-size: 1.1rem; }
@@ -395,14 +485,16 @@
     .steps { grid-template-columns: repeat(2, 1fr); }
     .example-grid { grid-template-columns: 1fr; gap: 30px; }
     .features { grid-template-columns: 1fr; gap: 20px; }
+    .price-grid { grid-template-columns: 1fr; gap: 36px; }
     .nav-links { gap: 16px; }
     .nav-links a:not(.btn) { display: none; }
     section { padding: 60px 0; }
   }
   @media (max-width: 520px) {
     .steps { grid-template-columns: 1fr; }
-    .price-card { padding: 32px 24px; }
-    .price-amount { font-size: 3rem; }
+    .price-card { padding: 28px 22px 24px; }
+    .price-options { grid-template-columns: 1fr; gap: 12px; }
+    .price-option .price-amount { font-size: 2.1rem; }
     .scarcity-row { gap: 18px; }
     h1 { font-size: 2rem; }
   }
@@ -434,7 +526,7 @@
       <div>
         <span class="eyebrow">Manassas · Nokesville · Bristow · 20112</span>
         <h1>Be the only <strong>plumber, dentist, or landscaper</strong> on the postcard 9,803 local homeowners pull from their mailbox.</h1>
-        <p class="hero-lede">A shared 9×12 postcard mailed by USPS to every door in zip 20112. One business per category. $500 covers your slot, custom ad design, and a free dynamic QR code so you can track every scan.</p>
+        <p class="hero-lede">A shared 9×12 postcard mailed by USPS to every door in zip 20112. One business per category. From <strong>$499 per mailing</strong> or <strong>$449/month</strong> — covers your slot, custom ad design, and a free dynamic QR code so you can track every scan.</p>
         <div class="hero-cta-row">
           <a href="mailto:kylevcrum@gmail.com?subject=Reserving%20a%20slot%20on%20the%20next%20postcard&body=Hi%20Kyle%2C%0A%0AMy%20business%20is%3A%20%0AThe%20category%20I%27d%20like%20to%20reserve%3A%20%0AMy%20phone%20number%3A%20%0A%0AThanks%21" class="btn btn-large">Reserve my category →</a>
           <a href="#examples" class="btn btn-outline btn-large">See example postcards</a>
@@ -804,23 +896,45 @@
       </div>
     </div>
 
-    <!-- Image upload slots for real photos later -->
-    <div class="example-grid" style="margin-top: 40px;">
+    <!-- Real printed cards from the 9x12 Method network -->
+    <div style="text-align: center; margin: 60px 0 30px;">
+      <h3 style="font-size: 1.3rem; color: var(--navy-deep);">Real printed cards from the 9x12 Method network</h3>
+      <p style="color: var(--muted); font-size: 0.95rem; max-width: 640px; margin: 10px auto 0;">Old Town Postcard Co. uses the same proven 9×12 format as partner mailings in other markets. Photos below show finished cards from a New England operator — yours will look just like this with Manassas-area businesses.</p>
+    </div>
+    <div class="example-grid">
       <div class="example-card">
-        <h3>Real card — front (photo)</h3>
-        <p class="example-card-desc">A photo of an actual printed postcard, showing all 16 slots filled with real local businesses.</p>
-        <div class="image-slot">
-          <strong>Photo placeholder</strong>
-          <small>Replace this with a real photo of the printed front once your first run lands. Recommended size: 1200×900px or larger, JPG.</small>
+        <h3>Stacks coming off the press</h3>
+        <p class="example-card-desc">Thousands of finished 9×12 postcards bundled to USPS specs, ready for the post office.</p>
+        <div class="real-photo">
+          <img src="https://assets.skool.com/f/bb027b8e5c374c13890fa5d6aa085c64/44ba4a4f13ba48fea83a8e1dd551735ce39bac4711c34978bdeced169ae3718a" alt="Stacks of printed 9x12 postcards bundled for USPS delivery" loading="lazy">
         </div>
+        <p class="photo-caption">Photo: 9x12 Method partner mailing</p>
       </div>
       <div class="example-card">
-        <h3>Real card — back (photo)</h3>
-        <p class="example-card-desc">A photo of the back of an actual mailed postcard with the USPS indicia and your address block.</p>
-        <div class="image-slot">
-          <strong>Photo placeholder</strong>
-          <small>Replace this with a real photo of the printed back once your first run lands. Recommended size: 1200×900px or larger, JPG.</small>
+        <h3>A finished card, top half</h3>
+        <p class="example-card-desc">Real ads for plumbing, furniture, distillery, and dog training — same layout your card will use.</p>
+        <div class="real-photo">
+          <img src="https://assets.skool.com/f/bb027b8e5c374c13890fa5d6aa085c64/3d3469d188534e3cab2785079515ceeff0d9dd47cb6648d292e7f2e99f4f2d62-md.png" alt="Real printed 9x12 postcard front showing 8 ad slots" loading="lazy">
         </div>
+        <p class="photo-caption">Photo: 9x12 Method partner card (Portsmouth Spotlight, NH)</p>
+      </div>
+    </div>
+    <div class="example-grid" style="margin-top: 30px;">
+      <div class="example-card">
+        <h3>The full card front</h3>
+        <p class="example-card-desc">Bottom half of the same card with 8 more local businesses + USPS-compliant mailing block.</p>
+        <div class="real-photo">
+          <img src="https://assets.skool.com/f/bb027b8e5c374c13890fa5d6aa085c64/49d973c167e74468826bc6e58b7ec8411821f3674afc405ba58ce1867b07ffcb-md.png" alt="Real printed 9x12 postcard front bottom half showing 8 more ad slots" loading="lazy">
+        </div>
+        <p class="photo-caption">Photo: 9x12 Method partner card</p>
+      </div>
+      <div class="example-card">
+        <h3>Network of mailings</h3>
+        <p class="example-card-desc">Multiple operator cards side-by-side. Old Town Postcard Co. is the Manassas / Nokesville / Bristow card in this network.</p>
+        <div class="real-photo">
+          <img src="https://assets.skool.com/f/bb027b8e5c374c13890fa5d6aa085c64/209f9bf829934b89b0d0f742c69e075e225787346e7046fb992bacaf37453af1" alt="Multiple printed 9x12 cards from different operators in the network" loading="lazy">
+        </div>
+        <p class="photo-caption">Photo: 9x12 Method partner mailings (multiple cities)</p>
       </div>
     </div>
   </div>
@@ -831,8 +945,8 @@
   <div class="container">
     <div class="section-head">
       <div class="section-eyebrow">What's included</div>
-      <h2>$500 covers everything except the coffee.</h2>
-      <p>No hidden design fees, no per-mailing surcharges, no monthly subscription. One flat price for one mailing.</p>
+      <h2>One flat price covers everything except the coffee.</h2>
+      <p>No hidden design fees, no per-mailing surcharges. Pay per mailing or subscribe monthly to lock your slot on every send.</p>
     </div>
     <div class="features">
       <div class="feature">
@@ -886,28 +1000,76 @@
   <div class="container">
     <div class="section-head">
       <div class="section-eyebrow">Pricing</div>
-      <h2>One slot. One mailing. One simple number.</h2>
-      <p>Sixteen total slots. One business per category. When yours is taken, it's taken.</p>
+      <h2>Two slot sizes. Two ways to pay. Same exclusivity.</h2>
+      <p>Sixteen total slots per card. One business per category. Subscribe monthly to lock your spot on every mailing — or pay per mailing as you go.</p>
     </div>
-    <div class="price-card">
-      <h3>Standard slot</h3>
-      <div class="price-amount"><span>$</span>500</div>
-      <div class="price-note">That's about 5¢ to reach each homeowner.</div>
-      <ul class="price-list">
-        <li>3×4 inch ad on a 9×12 inch postcard</li>
-        <li>Mailed via USPS to all 9,803 homes in zip 20112</li>
-        <li>Custom ad design + 2 free revisions</li>
-        <li>Free dynamic QR code with scan tracking</li>
-        <li>One business per category — no competitors</li>
-        <li>Scan report emailed 2 weeks after mailing</li>
-        <li>14pt UV-gloss card stock, full color both sides</li>
-      </ul>
-      <a href="mailto:kylevcrum@gmail.com?subject=Reserving%20a%20slot%20on%20the%20next%20postcard&body=Hi%20Kyle%2C%0A%0AMy%20business%20is%3A%20%0AThe%20category%20I%27d%20like%20to%20reserve%3A%20%0AMy%20phone%20number%3A%20%0A%0AThanks%21" class="btn btn-large">Reserve my category →</a>
+
+    <div class="price-grid">
+      <!-- Single Slot -->
+      <div class="price-card">
+        <div class="price-card-head">
+          <h3>Single slot</h3>
+          <p class="price-card-tag">Standard 3×4 inch ad on the 9×12 postcard</p>
+        </div>
+        <ul class="price-list">
+          <li>3×4 inch ad on a 9×12 inch postcard</li>
+          <li>Mailed via USPS to all 9,803 homes in zip 20112</li>
+          <li>Custom ad design + 2 free revisions</li>
+          <li>Free dynamic QR code with scan tracking</li>
+          <li>One business per category — no competitors</li>
+          <li>14pt UV-gloss card stock, full color both sides</li>
+        </ul>
+        <div class="price-options">
+          <div class="price-option">
+            <div class="price-option-head">Per mailing</div>
+            <div class="price-amount"><span>$</span>499</div>
+            <div class="price-note">5¢ per home reached • One-time</div>
+            <a href="mailto:kylevcrum@gmail.com?subject=Single%20slot%20%E2%80%94%20one%20mailing&body=Hi%20Kyle%2C%0A%0AI%27d%20like%20to%20reserve%20a%20Single%20Slot%20%28per%20mailing%2C%20%24499%29.%0A%0AMy%20business%3A%20%0AMy%20category%3A%20%0AMy%20phone%3A%20%0A%0AThanks%21" class="btn">Reserve Single — $499</a>
+          </div>
+          <div class="price-option recommended">
+            <div class="price-option-head">Recurring monthly <span class="badge">Save $50/mo</span></div>
+            <div class="price-amount"><span>$</span>449<span class="suffix">/mo</span></div>
+            <div class="price-note">Cancel anytime • Locks your spot</div>
+            <a href="mailto:kylevcrum@gmail.com?subject=Single%20slot%20%E2%80%94%20monthly%20subscription&body=Hi%20Kyle%2C%0A%0AI%27d%20like%20to%20subscribe%20to%20a%20Single%20Slot%20at%20%24449%2Fmonth.%0A%0AMy%20business%3A%20%0AMy%20category%3A%20%0AMy%20phone%3A%20%0A%0AThanks%21" class="btn">Subscribe Single — $449/mo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Double Slot -->
+      <div class="price-card premium">
+        <div class="price-card-head">
+          <h3>Double slot</h3>
+          <p class="price-card-tag">2×3×4 inches (side-by-side) for more visibility</p>
+        </div>
+        <ul class="price-list">
+          <li>Two 3×4 inch ad slots side-by-side (takes 2 category slots)</li>
+          <li>Mailed via USPS to all 9,803 homes in zip 20112</li>
+          <li>Custom ad design + 2 free revisions</li>
+          <li>Free dynamic QR code with scan tracking</li>
+          <li>Category exclusivity applies to both slots</li>
+          <li>14pt UV-gloss card stock, full color both sides</li>
+        </ul>
+        <div class="price-options">
+          <div class="price-option">
+            <div class="price-option-head">Per mailing</div>
+            <div class="price-amount"><span>$</span>799</div>
+            <div class="price-note">4¢ per home reached • One-time</div>
+            <a href="mailto:kylevcrum@gmail.com?subject=Double%20slot%20%E2%80%94%20one%20mailing&body=Hi%20Kyle%2C%0A%0AI%27d%20like%20to%20reserve%20a%20Double%20Slot%20%28per%20mailing%2C%20%24799%29.%0A%0AMy%20business%3A%20%0AMy%20categories%3A%20%0AMy%20phone%3A%20%0A%0AThanks%21" class="btn">Reserve Double — $799</a>
+          </div>
+          <div class="price-option recommended">
+            <div class="price-option-head">Recurring monthly <span class="badge">Save $100/mo</span></div>
+            <div class="price-amount"><span>$</span>699<span class="suffix">/mo</span></div>
+            <div class="price-note">Cancel anytime • Locks your spots</div>
+            <a href="mailto:kylevcrum@gmail.com?subject=Double%20slot%20%E2%80%94%20monthly%20subscription&body=Hi%20Kyle%2C%0A%0AI%27d%20like%20to%20subscribe%20to%20a%20Double%20Slot%20at%20%24699%2Fmonth.%0A%0AMy%20business%3A%20%0AMy%20categories%3A%20%0AMy%20phone%3A%20%0A%0AThanks%21" class="btn">Subscribe Double — $699/mo</a>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Scarcity notice -->
     <div class="scarcity-row">
-      <span><strong>16</strong> total slots per mailing</span>
-      <span><strong>1</strong> business per category</span>
-      <span><strong>~9,803</strong> homes per send</span>
+      <span>Next mailing <strong>closes April 30, 2026</strong></span>
+      <span><strong>12 of 16 slots</strong> already reserved</span>
     </div>
   </div>
 </section>
@@ -916,79 +1078,78 @@
 <section>
   <div class="narrow">
     <div class="section-head">
-      <div class="section-eyebrow">Common questions</div>
-      <h2>Things people ask before they book.</h2>
+      <div class="section-eyebrow">FAQ</div>
+      <h2>You might be wondering...</h2>
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-q">What kind of ROI can I expect?</div>
-        <div class="faq-a">We sell exposure, not guaranteed leads. We can't promise a specific ROI — too much depends on your offer and how you handle calls. What we can promise is reach (9,803 homes) and tracking (scan reports on your QR code) so you can measure for yourself. Strong offers — like the Lehi Bakery's "free cookie, no purchase necessary" — typically generate same-day walk-ins. Weak offers — "10% off" — typically don't.</div>
+        <h3 class="faq-q">Why USPS EDDM and not direct mail from a typical agency?</h3>
+        <p class="faq-a">Typical direct mail costs $0.70–$1.20 per piece after agency markup. EDDM direct mail costs $0.35–0.40 per piece. We remove the middleman (no agency, no designer markup, no print broker) and pass the savings to you. You pay per home reached — $499 ÷ 9,803 = 5¢ per home for a single slot. That's sustainable for most local service businesses.</p>
       </div>
+
       <div class="faq-item">
-        <div class="faq-q">When does the next postcard go out?</div>
-        <div class="faq-a">We mail when the card is full or when the deadline hits, whichever comes first. Email us at kylevcrum@gmail.com for the current mailing's exact send date.</div>
+        <h3 class="faq-q">How does the QR code tracking work?</h3>
+        <p class="faq-a">Each ad gets a unique, dynamic QR code. It's tied to a landing page of your choice — could be your contact form, a special offer page, or a calendar booking link. When someone scans it, we record: date, time, location (to zip), device type (mobile/desktop), and referrer. Two weeks after the card lands we send you a report with total scans and a week-by-week breakdown.</p>
       </div>
+
       <div class="faq-item">
-        <div class="faq-q">What if I don't have a logo or an offer ready?</div>
-        <div class="faq-a">We'll work with you. We have a swipe file of strong offers by industry — for example, plumber offers like "$29 sewer camera inspection (regularly $79)" or HVAC offers like "$49 duct-cleaning with any AC service." If you don't have a logo, send us your business name and we'll design something simple that works.</div>
+        <h3 class="faq-q">What if the category I want is already taken?</h3>
+        <p class="faq-a">The card prints every 6–8 weeks. If your category is booked on this run, we add you to the waitlist for the next one. We also reach out if a reserved slot gets cancelled. First come, first served — but we'll get you on a future card.</p>
       </div>
+
       <div class="faq-item">
-        <div class="faq-q">Who actually mails these?</div>
-        <div class="faq-a">USPS, via the Every Door Direct Mail (EDDM) program. We bundle the cards according to USPS specs and drop them off at the post office. You can verify the program at <a href="https://eddm.usps.com" target="_blank" rel="noopener">eddm.usps.com</a>.</div>
+        <h3 class="faq-q">Can I use the same ad every time or change it?</h3>
+        <p class="faq-a">You can change your ad for every mailing if you want — we update the QR code automatically. Or keep it the same. If you subscribe monthly we design the first one, then you can request tweaks for future mailings (slight edits are free; major redesigns are $50).</p>
       </div>
+
       <div class="faq-item">
-        <div class="faq-q">Why only 16 slots?</div>
-        <div class="faq-a">Two reasons. First, more than 16 ads on a 9×12 card looks cluttered and reduces engagement for everyone. Second, if we sold the same category twice, neither business would get the value of being "the only [category]" the homeowner sees. Scarcity protects your investment.</div>
+        <h3 class="faq-q">Who gets this postcard in the mail?</h3>
+        <p class="faq-a">Every address in zip code 20112 — Manassas, Nokesville, and Bristow. It's USPS EDDM ("Every Door Direct Mail"), so it goes to ~9,803 residential and commercial mailboxes. Median household income $127k–$200k based on Census data. Average household size 2.8, average age 38.</p>
       </div>
+
       <div class="faq-item">
-        <div class="faq-q">Can I cancel after I sign up?</div>
-        <div class="faq-a">Yes, with conditions. If you cancel before we start designing your ad, full refund. If we've started design but haven't printed yet, a small cancellation fee covers our time. Once the card is printed, no refunds — we've already paid the printer and post office.</div>
+        <h3 class="faq-q">What if I'm not happy with my slot or results?</h3>
+        <p class="faq-a">For one-time mailings: once we print and mail, no refunds (printing and mailing are non-reversible). For monthly subscriptions: you can cancel anytime, no questions asked. If your design needs tweaks before the next mailing, we'll work with you.</p>
       </div>
+
       <div class="faq-item">
-        <div class="faq-q">Is Old Town Postcard Co. a real business?</div>
-        <div class="faq-a">Yes. It's a Virginia-based small business operated by Kyle Crum out of the Manassas / Nokesville / Bristow area. You can reach Kyle directly at <a href="mailto:kylevcrum@gmail.com">kylevcrum@gmail.com</a> with any questions before you commit.</div>
+        <h3 class="faq-q">When do I know if the card got delivered?</h3>
+        <p class="faq-a">USPS delivers EDDM mail within 5–7 business days of receipt. You'll get a delivery confirmation receipt from us (USPS Intelligent Mail tracking). Your QR code scans usually start within 3–5 days of delivery and taper off over 2–3 weeks. We send the final scan report 14 days after mailing.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">What about printing quality and turnaround?</h3>
+        <p class="faq-a">We print on 14pt UV-gloss card stock (thick, vibrant, won't bend in the mail). Full color both sides. Turnaround is ~7 business days from approval to USPS handoff. So from "I want in" to mailbox is roughly 3 weeks.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">How do you design my ad so fast?</h3>
+        <p class="faq-a">We have a library of proven layouts and design patterns. You send us your logo, a headline offer (e.g. "$50 off first haircut"), and your phone/website. We slot it into a template, apply your brand colors, and send you a proof. Two free revisions. If you don't have an offer, we suggest one from a swipe file of high-converting local offers.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3 class="faq-q">Can I reserve multiple categories?</h3>
+        <p class="faq-a">Yes — you could be "Plumbing" and "Roofing" on the same card if we have slots open in both. Or "HVAC Repair" and "HVAC Maintenance." Let us know in your email and we'll work it out. You'd pay per slot.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="about-section">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-eyebrow">About</div>
-      <h2>Who runs this.</h2>
-    </div>
-    <div class="about-card">
-      <div class="about-row">
-        <div class="about-portrait about-portrait-slot">
-          PHOTO<br>SLOT
-        </div>
-        <div>
-          <h3>Kyle Crum</h3>
-          <div class="about-meta">Owner — Old Town Postcard Co.<br>Manassas, Virginia · Serving 20112</div>
-        </div>
-      </div>
-      <p>Old Town Postcard Co. is a small, locally-operated business helping Manassas-area service providers get in front of homeowners who actually live nearby. Direct mail isn't fancy — but mailboxes still get checked, and a well-designed 9×12 card sticks around on the kitchen counter.</p>
-      <p style="margin-top: 14px;">If you have questions before you reserve a slot, email me directly at <a href="mailto:kylevcrum@gmail.com">kylevcrum@gmail.com</a>. I read everything and reply within a business day.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
+<!-- Final CTA -->
 <section class="final-cta">
   <div class="container">
-    <h2>Be the only one in your category.</h2>
-    <p>Sixteen slots. First come, first served. Email us with your category and we'll let you know if it's still open.</p>
-    <a href="mailto:kylevcrum@gmail.com?subject=Reserving%20a%20slot%20on%20the%20next%20postcard&body=Hi%20Kyle%2C%0A%0AMy%20business%20is%3A%20%0AThe%20category%20I%27d%20like%20to%20reserve%3A%20%0AMy%20phone%20number%3A%20%0A%0AThanks%21" class="btn btn-large">Reserve my category →</a>
+    <h2>Ready to get your business on the card?</h2>
+    <p>Email us with your business name, the category you'd like, and your phone number. If the slot is open, you're in. If not, we'll add you to the waitlist for the next mailing.</p>
+    <a href="mailto:kylevcrum@gmail.com?subject=Reserving%20a%20slot%20on%20the%20next%20postcard&body=Hi%20Kyle%2C%0A%0AMy%20business%20is%3A%20%0AThe%20category%20I%27d%20like%20to%20reserve%3A%20%0AMy%20phone%20number%3A%20%0A%0AThanks%21" class="btn btn-large">Reserve your category →</a>
   </div>
 </section>
 
+<!-- Footer -->
 <footer>
   <div class="container">
-    <div>© 2026 Old Town Postcard Co. · Manassas, Virginia</div>
+    <div>Old Town Postcard Co. • 2026</div>
     <div>
-      Questions? <a href="mailto:kylevcrum@gmail.com">kylevcrum@gmail.com</a>
+      <a href="mailto:kylevcrum@gmail.com">kylevcrum@gmail.com</a>
     </div>
   </div>
 </footer>

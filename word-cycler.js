@@ -1,1 +1,1 @@
-$(base64 -d /sessions/vibrant-affectionate-allen/mnt/Postcard\ Co/word-cycler-v7.b64)
+$(cat C:\Users\kylec\AppData\Roaming\Claude\local-agent-mode-sessions\745c855c-8d81-4852-b2b3-3e967a927cab\9a84c67c-b6c6-4e1c-a09d-48b214e45d65\local_ecba05d4-7f15-4e1f-83f8-7713f1281b6c\outputs\word-cycler-temp.js)

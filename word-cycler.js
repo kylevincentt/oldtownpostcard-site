@@ -96,7 +96,7 @@ var HERO_IMG_DATAURL = "data:image/webp;base64," +
   "Bmc9P+xDNcy94azVo2JP7vwydnE40F/enXTJ0vW34RLhCgd+x8ILAP71cdm6agdOB1HNG2yn8/fy" +
   "aEE0jGsQD+XehOG0WI898w8aYrUBk61AR0Lzi5qCjbGpCl+4LolvvdCgOT0yffkSneU1ZtC1kYnr" +
   "DwnyX1kpbINXjIq4hf3vD2NOH1y0Ws+V6Im/pF1u5zgz4Fu+ILm1nBWsI6IowbGZ2yeR01y0jqTO" +
-  "Ln+tJVDl+tgVaTu2wiF5WQdTObG+Ew1fUHRc8ZHCDdrCvATsrxeXrpt+cM9BBtEzvnP4JIXMrdX8" +
+  "Ll+tJVDl+tgVaTu2wiF5WQdTObG+Ew1fUHRc8ZHCDdrCvATsrxeXrpt+cM9BBtEzvnP4JIXMrdX8" +
   "TWPMPRYsXh3Umb1/N9hdwhJZvVfFUzKDBOyEf0f7pP/yTZvsAQroJqpxKuyi15bZpofq2FGfWipD" +
   "t7CDNSIvNVtQ4C0X7VrQq6OkxPSX45I98EVeoBFc2vBSYJ3qDqliSBGftibPUj0YkFau9eptys60" +
   "R9v92zGoVis3TZBnAgf0OuEzgPRUQxQzxOn5MjFyFoF1/tjnRkrOo46wrlAFP4F0zrT0cv/n/403" +

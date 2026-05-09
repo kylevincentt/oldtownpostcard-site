@@ -192,21 +192,210 @@ var HERO_IMG_DATAURL = "data:image/webp;base64," +
   "2srmaVnws20Q3i9uBH+jlDLoNBrRgFX7Y0c1D7kM/aBbFGBrca+X9Ocm6NcaMdfPjMoWfRnZ2DD0" +
   "VbeIypPT7g0pe+Q6Xq7vvYj9XsakQPfhJmzGUIJHH7gz/8xng51Yb6HgTkT/zQIU5gAAAADQoPaQ" +
   "aHcG/5AAC7gOpl9sAAAA";
+
 var WORDS = ["Plumber","Dentist","Landscaper","Real Estate Agent","Dog Groomer","Pizza Shop","Roofer","Accountant","Yoga Studio","Orthodontist","Mover","Florist","HVAC Pro","Chiropractor","Handyman","Wedding Planner","Lawn Care Pro","Optometrist","Coffee Shop","Lawyer","Barber","Tutor","Pest Control Pro","Mortgage Broker","Gym","Taco Joint","Electrician","Vet","Pilates Studio","Pediatrician","Nail Salon","Photographer","Martial Arts Dojo","Financial Planner","Painter","Dog Walker","Junk Hauler","Insurance Agent","Bakery","Locksmith","Dry Cleaner","Music Teacher","Gutter Cleaner","Hair Stylist","Pool Service","Garage Door Pro"];
-var INTERVAL_MS = 500;
-var TRANSITION_OUT_MS = 110;
+
+// Typewriter timings — calibrated to feel close to dopl.work's landing animation.
+var TYPE_MS = 65;       // time per character while typing
+var ERASE_MS = 35;      // time per character while erasing
+var HOLD_MS = 1500;     // pause with full word visible (cursor blinks here)
+var BETWEEN_MS = 350;   // pause with empty cycler before typing the next word
+var INITIAL_MS = 600;   // small delay after page load before the first char types
+
 function ensureCss(){
   if(document.getElementById('word-cycler-style')) return;
   var s = document.createElement('style');
   s.id = 'word-cycler-style';
-  s.textContent = '.word-cycler{display:inline-block;position:relative;vertical-align:baseline;color:var(--red,#b03a2e);min-width:0;}.word-cycler-track{display:inline-block;color:var(--red,#b03a2e);font-weight:700;white-space:nowrap;will-change:transform,opacity;transform-origin:0% 60%;transition:transform 240ms cubic-bezier(0.34,1.56,0.64,1),opacity 110ms ease-out;}.word-cycler-track[data-state="out"]{transition:transform 110ms cubic-bezier(0.4,0,1,1),opacity 110ms ease-in;transform:translateY(-32%) scale(0.9);opacity:0;}.word-cycler-track[data-state="enter"]{transition:none !important;transform:translateY(32%) scale(0.9);opacity:0;}@media (prefers-reduced-motion:reduce){.word-cycler-track{transition:none !important;}.word-cycler-track[data-state="out"],.word-cycler-track[data-state="enter"]{transform:none !important;opacity:1 !important;}}.btn{font-weight:700 !important;font-size:1rem !important;letter-spacing:-0.005em !important;box-shadow:0 1px 2px rgba(0,0,0,0.08),0 4px 12px rgba(176,58,46,0.22) !important;white-space:nowrap;transition:transform 0.15s,background 0.15s,box-shadow 0.2s !important;}.btn:hover{box-shadow:0 2px 4px rgba(0,0,0,0.1),0 8px 18px rgba(176,58,46,0.3) !important;}.btn-outline{box-shadow:none !important;}.btn-outline:hover{box-shadow:none !important;}.btn-large{font-size:1.05rem !important;}.hero-postcard-img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:var(--cream,#faf6ed);}@media (max-width:880px){.hero-postcard-img{max-height:460px;}}';
+  s.textContent =
+    '.word-cycler{display:inline-block;color:var(--red,#b03a2e);white-space:nowrap;}' +
+    '.word-cycler-track{display:inline;font-weight:700;color:var(--red,#b03a2e);}' +
+    '.word-cycler-cursor{display:inline-block;width:0.06em;height:0.78em;background:currentColor;color:var(--red,#b03a2e);margin-left:0.04em;vertical-align:-0.04em;animation:wc-blink 1.05s steps(2,start) infinite;border-radius:1px;}' +
+    '.word-cycler[data-typing="true"] .word-cycler-cursor{animation:none;opacity:1;}' +
+    '@keyframes wc-blink{50%{opacity:0;}}' +
+    '@media (prefers-reduced-motion:reduce){.word-cycler-cursor{display:none;}.word-cycler-track{transition:none !important;}}' +
+    '.btn{font-weight:700 !important;font-size:1rem !important;letter-spacing:-0.005em !important;box-shadow:0 1px 2px rgba(0,0,0,0.08),0 4px 12px rgba(176,58,46,0.22) !important;white-space:nowrap;transition:transform 0.15s,background 0.15s,box-shadow 0.2s !important;}' +
+    '.btn:hover{box-shadow:0 2px 4px rgba(0,0,0,0.1),0 8px 18px rgba(176,58,46,0.3) !important;}' +
+    '.btn-outline{box-shadow:none !important;}' +
+    '.btn-outline:hover{box-shadow:none !important;}' +
+    '.btn-large{font-size:1.05rem !important;}' +
+    '.hero-postcard-img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:var(--cream,#faf6ed);}' +
+    '@media (max-width:880px){.hero-postcard-img{max-height:460px;}}';
   document.head.appendChild(s);
 }
-function findHeadlineStrong(){var h1s=document.querySelectorAll("h1");for(var i=0;i<h1s.length;i++){var h=h1s[i];if(h.textContent&&h.textContent.indexOf("Be the only")!==-1)return{h1:h,strong:h.querySelector("strong")};}var existing=document.querySelector(".word-cycler .word-cycler-track");if(existing)return{h1:existing.closest("h1"),strong:existing.parentNode};return{h1:null,strong:null};}
-function ensureBr(node,position){var sib=position==="before"?node.previousSibling:node.nextSibling;if(sib&&sib.nodeName==="BR")return;var br=document.createElement("br");if(position==="before"){node.parentNode.insertBefore(br,node);}else{node.parentNode.insertBefore(br,node.nextSibling);}}
-function trimAdjacentText(node){var prev=node.previousSibling;while(prev&&prev.nodeName==="BR")prev=prev.previousSibling;if(prev&&prev.nodeType===3)prev.textContent=prev.textContent.replace(/\s+$/,"");var next=node.nextSibling;while(next&&next.nodeName==="BR")next=next.nextSibling;if(next&&next.nodeType===3)next.textContent=next.textContent.replace(/^\s+/,"");}
-function updateCopy(){document.querySelectorAll(".hero-meta span").forEach(function(span){span.childNodes.forEach(function(n){if(n.nodeType===3&&/Reports back in 2 weeks/i.test(n.textContent))n.textContent=n.textContent.replace(/Reports back in 2 weeks/i,"Sent out once a month or when all slots can be filled");});});}
-function swapHeroImage(){var wrap=document.querySelector(".hero-card-wrap");if(!wrap)return;var existingImg=wrap.querySelector("img.hero-postcard-img");if(existingImg){existingImg.src=HERO_IMG_DATAURL;return;}var existingSvg=wrap.querySelector("svg");var img=document.createElement("img");img.src=HERO_IMG_DATAURL;img.alt="Sample local-business postcard with multiple advertiser slots";img.className="hero-postcard-img";img.loading="eager";img.decoding="async";if(existingSvg)wrap.replaceChild(img,existingSvg);else{wrap.innerHTML="";wrap.appendChild(img);}}
-function init(){ensureCss();updateCopy();swapHeroImage();var found=findHeadlineStrong();if(!found.h1)return;var target=found.strong;var wrap,track;if(target&&target.classList&&target.classList.contains("word-cycler")){wrap=target;track=wrap.querySelector(".word-cycler-track");if(!track){track=document.createElement("span");track.className="word-cycler-track";track.setAttribute("data-word-cycler","");wrap.innerHTML="";wrap.appendChild(track);}track.textContent=WORDS[0];wrap.style.minWidth="0";ensureBr(wrap,"before");ensureBr(wrap,"after");trimAdjacentText(wrap);}else if(target&&/plumber|dentist|landscaper/i.test(target.textContent||"")){wrap=document.createElement("span");wrap.className="word-cycler";track=document.createElement("span");track.className="word-cycler-track";track.setAttribute("data-word-cycler","");track.textContent=WORDS[0];wrap.appendChild(track);target.parentNode.replaceChild(wrap,target);ensureBr(wrap,"before");ensureBr(wrap,"after");trimAdjacentText(wrap);}else return;var prefersReduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;var pageHidden=false;document.addEventListener("visibilitychange",function(){pageHidden=document.hidden;});var idx=0;function tick(){if(pageHidden)return;idx=(idx+1)%WORDS.length;if(prefersReduced){track.textContent=WORDS[idx];return;}track.setAttribute("data-state","out");setTimeout(function(){track.textContent=WORDS[idx];track.setAttribute("data-state","enter");void track.offsetWidth;track.removeAttribute("data-state");},TRANSITION_OUT_MS);}setInterval(tick,INTERVAL_MS);}
-if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);}else{init();}
+
+function findHeadlineStrong(){
+  var h1s = document.querySelectorAll("h1");
+  for(var i=0;i<h1s.length;i++){
+    var h = h1s[i];
+    if(h.textContent && h.textContent.indexOf("Be the only") !== -1){
+      return {h1:h, strong:h.querySelector("strong")};
+    }
+  }
+  var existing = document.querySelector(".word-cycler .word-cycler-track");
+  if(existing) return {h1:existing.closest("h1"), strong:existing.parentNode};
+  return {h1:null, strong:null};
+}
+
+function ensureBr(node, position){
+  var sib = position === "before" ? node.previousSibling : node.nextSibling;
+  if(sib && sib.nodeName === "BR") return;
+  var br = document.createElement("br");
+  if(position === "before") node.parentNode.insertBefore(br, node);
+  else node.parentNode.insertBefore(br, node.nextSibling);
+}
+
+function trimAdjacentText(node){
+  var prev = node.previousSibling;
+  while(prev && prev.nodeName === "BR") prev = prev.previousSibling;
+  if(prev && prev.nodeType === 3) prev.textContent = prev.textContent.replace(/\s+$/,"");
+  var next = node.nextSibling;
+  while(next && next.nodeName === "BR") next = next.nextSibling;
+  if(next && next.nodeType === 3) next.textContent = next.textContent.replace(/^\s+/,"");
+}
+
+function updateCopy(){
+  document.querySelectorAll(".hero-meta span").forEach(function(span){
+    span.childNodes.forEach(function(n){
+      if(n.nodeType === 3 && /Reports back in 2 weeks/i.test(n.textContent)){
+        n.textContent = n.textContent.replace(/Reports back in 2 weeks/i, "Sent out once a month or when all slots can be filled");
+      }
+    });
+  });
+}
+
+function swapHeroImage(){
+  var wrap = document.querySelector(".hero-card-wrap");
+  if(!wrap) return;
+  var existingImg = wrap.querySelector("img.hero-postcard-img");
+  if(existingImg){ existingImg.src = HERO_IMG_DATAURL; return; }
+  var existingSvg = wrap.querySelector("svg");
+  var img = document.createElement("img");
+  img.src = HERO_IMG_DATAURL;
+  img.alt = "Sample local-business postcard with multiple advertiser slots";
+  img.className = "hero-postcard-img";
+  img.loading = "eager";
+  img.decoding = "async";
+  if(existingSvg) wrap.replaceChild(img, existingSvg);
+  else { wrap.innerHTML = ""; wrap.appendChild(img); }
+}
+
+function init(){
+  ensureCss();
+  updateCopy();
+  swapHeroImage();
+
+  var found = findHeadlineStrong();
+  if(!found.h1) return;
+  var target = found.strong;
+  var wrap, track, cursor;
+
+  if(target && target.classList && target.classList.contains("word-cycler")){
+    wrap = target;
+    track = wrap.querySelector(".word-cycler-track");
+    cursor = wrap.querySelector(".word-cycler-cursor");
+    if(!track){
+      track = document.createElement("span");
+      track.className = "word-cycler-track";
+      wrap.innerHTML = "";
+      wrap.appendChild(track);
+    }
+    if(!cursor){
+      cursor = document.createElement("span");
+      cursor.className = "word-cycler-cursor";
+      cursor.setAttribute("aria-hidden","true");
+      wrap.appendChild(cursor);
+    }
+    track.textContent = "";
+    ensureBr(wrap, "before");
+    ensureBr(wrap, "after");
+    trimAdjacentText(wrap);
+  } else if(target && /plumber|dentist|landscaper/i.test(target.textContent || "")){
+    wrap = document.createElement("span");
+    wrap.className = "word-cycler";
+    track = document.createElement("span");
+    track.className = "word-cycler-track";
+    cursor = document.createElement("span");
+    cursor.className = "word-cycler-cursor";
+    cursor.setAttribute("aria-hidden","true");
+    track.textContent = "";
+    wrap.appendChild(track);
+    wrap.appendChild(cursor);
+    target.parentNode.replaceChild(wrap, target);
+    ensureBr(wrap, "before");
+    ensureBr(wrap, "after");
+    trimAdjacentText(wrap);
+  } else return;
+
+  // Give SR users + the page outline a stable label even though the visible text mutates.
+  wrap.setAttribute("aria-label", "Be the only business in your category");
+
+  var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var pageHidden = false;
+  document.addEventListener("visibilitychange", function(){ pageHidden = document.hidden; });
+
+  if(prefersReduced){
+    var ri = 0;
+    track.textContent = WORDS[0];
+    setInterval(function(){
+      if(pageHidden) return;
+      ri = (ri + 1) % WORDS.length;
+      track.textContent = WORDS[ri];
+    }, 2800);
+    return;
+  }
+
+  var wordIdx = 0;
+  var charIdx = 0;
+  var phase = "typing";
+
+  function setTyping(t){
+    if(t) wrap.setAttribute("data-typing","true");
+    else wrap.removeAttribute("data-typing");
+  }
+
+  function tick(){
+    if(pageHidden){ setTimeout(tick, 250); return; }
+    var word = WORDS[wordIdx];
+    if(phase === "typing"){
+      charIdx++;
+      track.textContent = word.slice(0, charIdx);
+      setTyping(true);
+      if(charIdx >= word.length){
+        phase = "holding";
+        setTyping(false); // cursor blinks during the hold
+        setTimeout(tick, HOLD_MS);
+      } else {
+        setTimeout(tick, TYPE_MS);
+      }
+    } else if(phase === "holding"){
+      phase = "erasing";
+      setTyping(true);
+      setTimeout(tick, ERASE_MS);
+    } else if(phase === "erasing"){
+      charIdx = Math.max(0, charIdx - 1);
+      track.textContent = word.slice(0, charIdx);
+      if(charIdx <= 0){
+        phase = "between";
+        setTyping(false); // cursor blinks during the gap
+        setTimeout(tick, BETWEEN_MS);
+      } else {
+        setTimeout(tick, ERASE_MS);
+      }
+    } else if(phase === "between"){
+      wordIdx = (wordIdx + 1) % WORDS.length;
+      charIdx = 0;
+      phase = "typing";
+      setTimeout(tick, TYPE_MS);
+    }
+  }
+
+  setTyping(false);
+  setTimeout(tick, INITIAL_MS);
+}
+
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
 })();
